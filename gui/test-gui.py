@@ -49,7 +49,7 @@ class MasterPage(tk.Frame):
         # user_label.pack(side=tk.LEFT, fill=tk.BOTH)
         pass_label_frame = tk.LabelFrame(login_label_frame, text="Enter Password")
         pass_label_frame.pack(fill=tk.BOTH, expand=True)
-        pass_entry_field = tk.Entry(pass_label_frame, bd=3)
+        pass_entry_field = tk.Entry(pass_label_frame, show="*", bd=3)
         pass_entry_field.pack(side=tk.BOTTOM, fill=tk.X, expand=True)
 
         login_button = tk.Button(self, text='Login', command=lambda: [controller.show_frame(ChatWindow), enter_data()])
@@ -163,12 +163,12 @@ class RegisterUser(tk.Frame):
 
         reg_pass_label_frame = tk.LabelFrame(regn_label_frame, text="Enter Password")
         reg_pass_label_frame.pack(fill=tk.BOTH, expand=True)
-        reg_pass_entry_field = tk.Entry(reg_pass_label_frame, bd=3)
+        reg_pass_entry_field = tk.Entry(reg_pass_label_frame, show="*", bd=3)
         reg_pass_entry_field.pack(fill=tk.X, expand=True)
 
         reg_confirm_pass_label_frame = tk.LabelFrame(regn_label_frame, text="Confrim Password")
         reg_confirm_pass_label_frame.pack(fill=tk.BOTH, expand=True)
-        reg_confirm_pass_entry_field = tk.Entry(reg_confirm_pass_label_frame, bd=3)
+        reg_confirm_pass_entry_field = tk.Entry(reg_confirm_pass_label_frame, show="*", bd=3)
         reg_confirm_pass_entry_field.pack(fill=tk.X, expand=True)
 
         register_button = tk.Button(self, text='Register New User', 
