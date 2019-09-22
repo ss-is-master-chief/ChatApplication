@@ -135,24 +135,6 @@ class RegisterUser(tk.Frame):
         label.image = photo
         label.pack(fill=tk.BOTH, expand=True)
 
-        # username_label = tk.Label(self, text="Enter Username")
-        # username_label.pack(fill=tk.BOTH, expand=True)
-
-        # username_field = tk.Entry(self, justify="center")
-        # username_field.pack(fill=tk.BOTH, expand=True)
-
-        # password_label = tk.Label(self, text="Enter Password")
-        # password_label.pack(fill=tk.BOTH, expand=True)
-
-        # password_field = tk.Entry(self, show="*", justify="center")
-        # password_field.pack(fill=tk.BOTH, expand=True)
-
-        # confirm_password_label = tk.Label(self, text="Confirm Password")
-        # confirm_password_label.pack(fill=tk.BOTH, expand=True)
-
-        # confirm_password_field = tk.Entry(self, show="*", justify="center")
-        # confirm_password_field.pack(fill=tk.BOTH, expand=True)
-
         regn_label_frame = tk.Frame(self)
         regn_label_frame.pack(fill=tk.BOTH, expand=True, padx=3, pady=3)
 
