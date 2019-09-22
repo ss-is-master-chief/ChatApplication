@@ -38,24 +38,26 @@ class MasterPage(tk.Frame):
         label.image = photo
         label.pack(fill=tk.BOTH, expand=True)
 
-        username_label = tk.Label(self, text="Username")
-        username_label.pack(fill=tk.BOTH)
+        login_label_frame = tk.Frame(self)
+        login_label_frame.pack(fill=tk.BOTH, expand=True, padx=3, pady=3)
 
-        username_field = tk.Entry(self, bd=3, justify="center")
-        username_field.pack(fill=tk.BOTH, padx=5)
-
-        password_label = tk.Label(self, text="Password")
-        password_label.pack(fill=tk.BOTH)
-
-        password_field = tk.Entry(self, show="*", bd=3, justify="center")
-        password_field.pack(fill=tk.BOTH, padx=5)
+        user_label_frame = tk.LabelFrame(login_label_frame, text="Enter Username")
+        user_label_frame.pack(fill=tk.BOTH, expand=True)
+        user_entry_field = tk.Entry(user_label_frame, bd=3)
+        user_entry_field.pack(side=tk.BOTTOM, fill=tk.X, expand=True)
+        # user_label = tk.Label(user_label_frame, text="Username")
+        # user_label.pack(side=tk.LEFT, fill=tk.BOTH)
+        pass_label_frame = tk.LabelFrame(login_label_frame, text="Enter Password")
+        pass_label_frame.pack(fill=tk.BOTH, expand=True)
+        pass_entry_field = tk.Entry(pass_label_frame, bd=3)
+        pass_entry_field.pack(side=tk.BOTTOM, fill=tk.X, expand=True)
 
         login_button = tk.Button(self, text='Login', command=lambda: [controller.show_frame(ChatWindow), enter_data()])
-        login_button.pack(pady=10)
+        login_button.pack(side=tk.TOP, fill=tk.BOTH, expand=True, padx=160, pady=10)
 
-        new_user_button = tk.Button(self, text='Sign Up', 
+        new_user_button = tk.Button(self, text='New User? Sign Up', 
                                     command=lambda: controller.show_frame(RegisterUser))
-        new_user_button.pack(fill=tk.BOTH, pady=20)
+        new_user_button.pack(side=tk.TOP, fill=tk.BOTH, expand=True, padx=160, pady=10)
 
         def enter_data():
             with open('./data/login-data.csv','a', newline='') as fd:
@@ -74,29 +76,55 @@ class ChatWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        messages_frame = tk.Frame(self)
+        chat_frame = tk.LabelFrame(self, text="CHAT ROOM", bg="#ebd1bc")
+        chat_frame.pack(fill=tk.BOTH, padx=3, pady=3, expand=True)
 
         my_msg = tk.StringVar()  # For the messages to be sent.
         my_msg.set("")
         
-        scrollbar = tk.Scrollbar(messages_frame)  # To navigate through past messages.
-        msg_list = tk.Listbox(messages_frame, height=15, width=60, yscrollcommand=scrollbar.set)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        msg_list.pack(side=tk.TOP, fill=tk.BOTH)
-        
-        msg_list.pack()
+        scrollbar = tk.Scrollbar(chat_frame)  # To navigate through past messages.
+        msg_list = tk.Listbox(chat_frame, height=15, width=60, yscrollcommand=scrollbar.set)
+        msg_list.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        # scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    
+        msg_list.pack(padx=5, pady=5)
 
-        messages_frame.pack(fill=tk.BOTH)
-        button_label = tk.Label(self, text="Enter Message:")
-        button_label.pack()
-        entry_field = tk.Entry(self, bd=3)
+        username_status_frame = tk.LabelFrame(self, text="ONLINE USERS")
+        username_status_frame.pack(side=tk.LEFT, fill=tk.BOTH, padx=3, pady=3, expand=True)
+
+        '''
+        ENTER SCROLLBAR IN ONLINE USERS FRAME
+        '''
+
+        label = tk.Label(username_status_frame, text="User1\nUser2\nUser3")
+        label.pack(side=tk.LEFT, expand=True)
+
+        message_frame = tk.LabelFrame(self, text="CONSOLE")
+        message_frame.pack(side=tk.RIGHT, fill=tk.BOTH, padx=3, pady=3, expand=True)
+
+        to_label_frame = tk.Frame(message_frame)
+        to_label_frame.pack(fill=tk.BOTH, expand=True)
+        to_label = tk.Label(to_label_frame, text="To User")
+        to_label.pack(side=tk.LEFT, fill=tk.X)
+        to_field = tk.Entry(to_label_frame, bd=3, width=45)
         #entry_field.bind("<Return>", send)
-        entry_field.pack()
-        send_button = tk.Button(self, text="Send")
-        send_button.pack()
+        to_field.pack(fill=tk.X, expand=True)
 
-        quit_button = tk.Button(self, text="Quit", command=lambda: controller.show_frame(MasterPage))
-        quit_button.pack()
+        message_label_frame = tk.Frame(message_frame)
+        message_label_frame.pack(fill=tk.BOTH, expand=True)
+        button_label = tk.Label(message_label_frame, text="Message")
+        button_label.pack(side=tk.LEFT, fill=tk.X)
+        entry_field = tk.Entry(message_label_frame, bd=3, width=45)
+        #entry_field.bind("<Return>", send)
+        entry_field.pack(fill=tk.X, expand=True)
+        
+        button_frame = tk.Frame(message_frame)
+        button_frame.pack(fill=tk.BOTH, expand=True)
+        send_button = tk.Button(button_frame, text="Send")
+        send_button.pack(fill=tk.BOTH, pady=10, expand=True)
+
+        logout_button = tk.Button(button_frame, text="Logout", command=lambda: controller.show_frame(MasterPage))
+        logout_button.pack(fill=tk.BOTH, pady=3, expand=True)
 
 class RegisterUser(tk.Frame):
     def __init__(self, parent, controller):
@@ -107,23 +135,41 @@ class RegisterUser(tk.Frame):
         label.image = photo
         label.pack(fill=tk.BOTH, expand=True)
 
-        username_label = tk.Label(self, text="Enter Username")
-        username_label.pack(fill=tk.BOTH, expand=True)
+        # username_label = tk.Label(self, text="Enter Username")
+        # username_label.pack(fill=tk.BOTH, expand=True)
 
-        username_field = tk.Entry(self, justify="center")
-        username_field.pack(fill=tk.BOTH, expand=True)
+        # username_field = tk.Entry(self, justify="center")
+        # username_field.pack(fill=tk.BOTH, expand=True)
 
-        password_label = tk.Label(self, text="Enter Password")
-        password_label.pack(fill=tk.BOTH, expand=True)
+        # password_label = tk.Label(self, text="Enter Password")
+        # password_label.pack(fill=tk.BOTH, expand=True)
 
-        password_field = tk.Entry(self, show="*", justify="center")
-        password_field.pack(fill=tk.BOTH, expand=True)
+        # password_field = tk.Entry(self, show="*", justify="center")
+        # password_field.pack(fill=tk.BOTH, expand=True)
 
-        confirm_password_label = tk.Label(self, text="Confirm Password")
-        confirm_password_label.pack(fill=tk.BOTH, expand=True)
+        # confirm_password_label = tk.Label(self, text="Confirm Password")
+        # confirm_password_label.pack(fill=tk.BOTH, expand=True)
 
-        confirm_password_field = tk.Entry(self, show="*", justify="center")
-        confirm_password_field.pack(fill=tk.BOTH, expand=True)
+        # confirm_password_field = tk.Entry(self, show="*", justify="center")
+        # confirm_password_field.pack(fill=tk.BOTH, expand=True)
+
+        regn_label_frame = tk.Frame(self)
+        regn_label_frame.pack(fill=tk.BOTH, expand=True, padx=3, pady=3)
+
+        reg_user_label_frame = tk.LabelFrame(regn_label_frame, text="Enter Username")
+        reg_user_label_frame.pack(fill=tk.BOTH, expand=True)
+        reg_user_entry_field = tk.Entry(reg_user_label_frame, bd=3)
+        reg_user_entry_field.pack(fill=tk.X, expand=True)
+
+        reg_pass_label_frame = tk.LabelFrame(regn_label_frame, text="Enter Password")
+        reg_pass_label_frame.pack(fill=tk.BOTH, expand=True)
+        reg_pass_entry_field = tk.Entry(reg_pass_label_frame, bd=3)
+        reg_pass_entry_field.pack(fill=tk.X, expand=True)
+
+        reg_confirm_pass_label_frame = tk.LabelFrame(regn_label_frame, text="Confrim Password")
+        reg_confirm_pass_label_frame.pack(fill=tk.BOTH, expand=True)
+        reg_confirm_pass_entry_field = tk.Entry(reg_confirm_pass_label_frame, bd=3)
+        reg_confirm_pass_entry_field.pack(fill=tk.X, expand=True)
 
         register_button = tk.Button(self, text='Register New User', 
                                     command=lambda: [controller.show_frame(SuccessfulRegistration), enter_data()])
@@ -132,7 +178,7 @@ class RegisterUser(tk.Frame):
         def enter_data():
             with open('./data/registration-data.csv','a', newline='') as fd:
                 writer = csv.writer(fd, quoting=csv.QUOTE_ALL)
-                writer.writerow([username_field.get(), password_field.get(), datetime.now()])
+                writer.writerow([reg_user_entry_field.get(), reg_pass_entry_field.get(), datetime.now()])
             fd.close()
 
         back_button = tk.Button(self, text='Back', 
@@ -157,4 +203,5 @@ class SuccessfulRegistration(tk.Frame):
 
 
 app = ChatApplication()
+app.title("ChatApplication")
 app.mainloop()
