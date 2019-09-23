@@ -65,10 +65,10 @@ class MasterPage(tk.Frame):
                 with open('./data/login-data.csv','r') as readfile:
                     csvreader = csv.reader(readfile, delimiter=",")
                     for row in csvreader:
-                        if(username_field.get() in row[0]):
-                            writer.writerow([username_field.get(), "Valid", datetime.now()])
+                        if(user_entry_field.get() in row[0]):
+                            writer.writerow([user_entry_field.get(), "Valid", datetime.now()])
                         else:
-                            writer.writerow([username_field.get(), "Invalid", datetime.now()])
+                            writer.writerow([user_entry_field.get(), "Invalid", datetime.now()])
                 readfile.close()
             fd.close()
 
